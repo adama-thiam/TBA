@@ -1,24 +1,46 @@
-# Define the Player class.
-class Player():
+class Player:
+    """
+    Représente le joueur dans le jeu.
 
-    # Define the constructor.
+    Attributes
+    ----------
+    name : str
+        Le nom du joueur.
+    current_room : Room
+        La salle où se trouve actuellement le joueur.
+
+    Methods
+    -------
+    move(direction: str) -> bool
+        Déplace le joueur dans la direction spécifiée si une sortie existe.
+        Retourne True si le déplacement a réussi, False sinon.
+    """
+
     def __init__(self, name):
+        """Initialise un joueur avec un nom."""
         self.name = name
         self.current_room = None
-    
-    # Define the move method.
+
     def move(self, direction):
-        # Get the next room from the exits dictionary of the current room.
+        """
+        Déplace le joueur dans une direction donnée.
+
+        Parameters
+        ----------
+        direction : str
+            La direction dans laquelle le joueur souhaite se déplacer.
+
+        Returns
+        -------
+        bool
+            True si le déplacement est possible, False sinon.
+        """
         next_room = self.current_room.exits[direction]
 
-        # If the next room is None, print an error message and return False.
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
             return False
-        
-        # Set the current room to the next room.
+
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
-
-    
