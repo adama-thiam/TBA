@@ -20,6 +20,7 @@ class Game:
         go_cmd = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go_cmd
 
+<<<<<<< HEAD
         # Rooms (sans "dans")
         forest = Room("Forest", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
         tower = Room("Tower", "une immense tour en pierre qui s'élève au dessus des nuages.")
@@ -38,9 +39,55 @@ class Game:
         swamp.exits = {"N": tower, "E": None, "S": None, "O": castle}  # sens unique : marécage → tour OK
         castle.exits = {"N": forest, "E": swamp, "S": None, "O": None}
 
+=======
+
+        # Rooms (sans "dans")
+        entree = Room("Entrée", "L'entrée principale de l'orphelinat.")
+        living_room = Room("LivingRoon", "Le hall central de l'orphelinat.")
+        dortoir = Room("Dortoir", "Le dortoir des enfants.")
+
+        couloir1 = Room("Couloir1", "Un long couloir usé.")
+        bibliotheque = Room("Bibliotheque", "Une bibliothèque ancienne.")
+        salle_classe_1 = Room("Salle de classe 1", "Une salle de classe abîmée.")
+        salle_classe_2 = Room("Salle de classe 2", "Une autre salle de classe abîmée.")
+
+        couloir2 = Room("Couloir2", "Un couloir menant à plusieurs pièces.")
+        cuisine = Room("Cuisine", "La cuisine froide et silencieuse.")
+        bathroom = Room("Bathroon", "La salle de bain humide.")
+
+        chambre_mere = Room("ChambreMere", "La chambre de la Mère Supérieure.")
+        escalier_cache = Room("Escalier cache", "Un escalier secret caché derrière un meuble.")
+
+        labyrinthe = Room("Labyrinthe", "Une pièce qui mène aux tunnels souterrains.")
+
+        salle_sombre = Room("Salle_sombre", "Une salle plongée dans le noir.")
+        couloir_gardien = Room("Couloir_gardien", "Un couloir où rôde un gardien.")
+        carrefour = Room("carrefour", "Une intersection dans le labyrinthe.")
+
+        # Exit
+
+        entree.exits = {"N": living_room}
+        living_room.exits = { "S": entree,"N": couloir1,"O": dortoir,"E": couloir2}
+        dortoir.exits = {"E": living_room}
+        couloir1.exits = {"S": living_room,"N": bibliotheque,"O": salle_classe_2,"E": salle_classe_1}
+        salle_classe_2.exits = {"E": couloir1}
+        salle_classe_1.exits = {"O": couloir1}
+        bibliotheque.exits = {"S": couloir1}
+        couloir2.exits = {"O": living_room,"E": cuisine,"S": bathroom,"N": chambre_mere}
+        cuisine.exits = {"O": couloir2}
+        bathroom.exits = {"N": couloir2}
+        chambre_mere.exits = {"S": couloir2,"D": escalier_cache}
+        escalier_cache.exits = {"D": labyrinthe,"U": chambre_mere}
+        labyrinthe.exits = {"E": salle_sombre,"O": couloir_gardien,"S": carrefour,"U": escalier_cache}
+        salle_sombre.exits = {"O": labyrinthe,"S": carrefour}
+        couloir_gardien.exits = {"E": labyrinthe,"S": carrefour}
+        carrefour.exits = {"N": labyrinthe,"O": salle_sombre,"E": couloir_gardien}
+
+       
+>>>>>>> 4d2c6a8 (ajout des lieux)
         # Player
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = entree
 
     def play(self):
         self.setup()
