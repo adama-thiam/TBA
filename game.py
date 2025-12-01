@@ -32,7 +32,7 @@ class Game:
 
         # Exits
         forest.exits = {"N": cave, "E": None, "S": castle, "O": None}  # passage interdit : forêt → tour
-        tower.exits = {"N": cottage, "E": None, "S": None, "O": forest}  # sens unique : tour → marécage interdit
+        tower.exits = {"N": cottage, "E": None, "S": None, "O": None}  # sens unique : tour → marécage interdit
         cave.exits = {"N": None, "E": cottage, "S": forest, "O": None}
         cottage.exits = {"N": None, "E": None, "S": tower, "O": cave}
         swamp.exits = {"N": tower, "E": None, "S": None, "O": castle}  # sens unique : marécage → tour OK
