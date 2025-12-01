@@ -20,26 +20,6 @@ class Game:
         go_cmd = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go_cmd
 
-<<<<<<< HEAD
-        # Rooms (sans "dans")
-        forest = Room("Forest", "une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        tower = Room("Tower", "une immense tour en pierre qui s'élève au dessus des nuages.")
-        cave = Room("Cave", "une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        cottage = Room("Cottage", "un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        swamp = Room("Swamp", "un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        castle = Room("Castle", "un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-
-        self.rooms.extend([forest, tower, cave, cottage, swamp, castle])
-
-        # Exits
-        forest.exits = {"N": cave, "E": None, "S": castle, "O": None}  # passage interdit : forêt → tour
-        tower.exits = {"N": cottage, "E": None, "S": None, "O": None}  # sens unique : tour → marécage interdit
-        cave.exits = {"N": None, "E": cottage, "S": forest, "O": None}
-        cottage.exits = {"N": None, "E": None, "S": tower, "O": cave}
-        swamp.exits = {"N": tower, "E": None, "S": None, "O": castle}  # sens unique : marécage → tour OK
-        castle.exits = {"N": forest, "E": swamp, "S": None, "O": None}
-
-=======
 
         # Rooms (sans "dans")
         entree = Room("Entrée", "L'entrée principale de l'orphelinat.")
@@ -84,7 +64,6 @@ class Game:
         carrefour.exits = {"N": labyrinthe,"O": salle_sombre,"E": couloir_gardien}
 
        
->>>>>>> 4d2c6a8 (ajout des lieux)
         # Player
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = entree
