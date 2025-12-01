@@ -16,6 +16,19 @@ MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
+
+NORMALISATION = {
+    "n": "N", "nord": "N",
+    "s": "S", "sud": "S",
+    "e": "E", "est": "E",
+    "o": "O", "ouest": "O"
+}
+
+
+
+
+
+
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
@@ -44,20 +57,33 @@ class Actions:
         False
 
         """
-        
+
         player = game.player
         l = len(list_of_words)
-        # If the number of parameters is incorrect, print an error message and return False.
+
+    # Vérification du nombre de paramètres
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
 
-        # Get the direction from the list of words.
-        direction = list_of_words[1]
-        # Move the player in the direction specified by the parameter.
+    # Récupérer et normaliser la direction
+        direction = NORMALISATION.get(list_of_words[1].lower())
+        if not direction:
+            print(f"\n'{list_of_words[1]}' n'est pas une direction valide.\n")
+            return False
+
+    # Vérifier si la salle a une sortie dans cette direction
+        current_room = player.current_room
+        if direction not in current_room.exits or current_room.exits[direction] is None:
+            print("\nVous ne pouvez pas aller dans cette direction.\n")
+            return False
+
+    # Déplacer le joueur
         player.move(direction)
+        print(player.current_room.get_long_description())
         return True
+    
 
     def quit(game, list_of_words, number_of_parameters):
         """
@@ -85,13 +111,13 @@ class Actions:
 
         """
         l = len(list_of_words)
-        # If the number of parameters is incorrect, print an error message and return False.
+        #  print un msg d'erreur si le nmbr de param est incorrecte er return false
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
         
-        # Set the finished attribute of the game object to True.
+        # Mettre l'attribut  fini de l'objet du jeu sur True
         player = game.player
         msg = f"\nMerci {player.name} d'avoir joué. Au revoir.\n"
         print(msg)
