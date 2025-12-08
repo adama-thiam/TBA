@@ -81,7 +81,7 @@ class Actions:
 
     # Déplacer le joueur
         player.move(direction)
-        print(player.current_room.get_long_description())
+        # (player.move affiche déjà la description , à rajouter si ça fonctionne pas print(player.current_room.get_long_description())
         return True
     
 
@@ -163,3 +163,9 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+    
+    def history(game, params, expected_params):
+        print(game.player.get_history())
+
+    def back(game, params, expected_params):
+        return game.player.go_back()
