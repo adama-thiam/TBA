@@ -24,12 +24,7 @@ class Game:
         self.commands["back"] = back_cmd
         history_cmd = Command("history", ": afficher l'historique des salles visitées", Actions.history, 0)
         self.commands["history"] = history_cmd
-        look_cmd = Command(
-            "look",
-             " : observer la pièce et ses items",
-             Actions.look,
-            0
-        )
+        look_cmd = Command("look"," : observer la pièce et ses items",Actions.look,0)
         self.commands["look"] = look_cmd
         take_cmd = Command("take", " <item> : prendre un item dans la salle", Actions.take, 1)
         self.commands["take"] = take_cmd
