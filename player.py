@@ -21,6 +21,7 @@ class Player:
         self.name = name
         self.current_room = None
         self.history = [] #La liste des salles visitées qu'on va ajouter dans l'histroque
+        self.inventory = {}
 
     def move(self, direction):
         """
@@ -79,5 +80,17 @@ class Player:
         for room in self.history:
             result += f"      -{room.description}\n"
         return result 
+    
+    def get_inventory(self):
+        """
+        Retourne une chaîne de caractères décrivant l'inventaire du joueur.
+        """
+        if not self.inventory:
+            return "\nVotre inventaire est vide.\n"
+
+        result = "\nVous disposez des items suivants :\n"
+        for item in self.inventory.values():
+            result += f"    - {item}\n"
+        return result
 
     
