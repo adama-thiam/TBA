@@ -93,4 +93,9 @@ class Player:
             result += f"    - {item}\n"
         return result
 
-    
+    def look(self):
+        """
+        Affiche la description de la salle actuelle et les items présents.
+        """
+        print(self.current_room.get_long_description())
+        print(self.current_room.get_inventory())    

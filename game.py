@@ -2,6 +2,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -23,6 +24,13 @@ class Game:
         self.commands["back"] = back_cmd
         history_cmd = Command("history", ": afficher l'historique des salles visitées", Actions.history, 0)
         self.commands["history"] = history_cmd
+        look_cmd = Command(
+            "look",
+             " : observer la pièce et ses items",
+             Actions.look,
+            0
+        )
+        self.commands["look"] = look_cmd
 
 
 
@@ -72,6 +80,18 @@ class Game:
         # Player
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = entree
+
+        #Création des items
+        lampe de poche = Item("lampe de poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.5)
+        
+
+        # ajout des items dans les salles
+
+        dortoir.inventory.append(lampe de poche)
+        
+
+
+
 
         
 
