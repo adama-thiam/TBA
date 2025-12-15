@@ -192,3 +192,12 @@ class Actions:
             return False
         game.player.check()
         return True
+    
+    def look(game, params, expected_params):
+        """
+        Affiche la description de la pièce et les items présents.
+        """
+        room = game.player.current_room
+        print(room.get_long_description())  # description de la pièce
+        print(room.get_inventory())         # items dans la pièce
+        return True
