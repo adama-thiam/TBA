@@ -124,3 +124,14 @@ class Player:
         else:
             print(f"\nVous n'avez pas d'item nommé '{item_name}'.\n")
             return False
+        
+ 
+
+    def check(self):
+        """Afficher le contenu de l'inventaire du joueur"""
+        if not self.inventory:
+            print("\nVotre inventaire est vide.\n")
+        else:
+            print("\nVous disposez des items suivants :")
+            for item in self.inventory:
+                print(f"    - {item.name} : {item.description} ({item.weight} kg)")
