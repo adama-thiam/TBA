@@ -183,3 +183,12 @@ class Actions:
             return False
         item_name = list_of_words[1]
         return game.player.drop(item_name)
+
+
+    def check(game, list_of_words, number_of_parameters):
+        # Vérification du nombre de paramètres
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
+            return False
+        game.player.check()
+        return True

@@ -35,6 +35,8 @@ class Game:
         self.commands["take"] = take_cmd
         drop_cmd = Command("drop", " <item> : déposer un item dans la salle", Actions.drop, 1)
         self.commands["drop"] = drop_cmd
+        check_cmd = Command("check", " : afficher l'inventaire du joueur", Actions.check, 0)
+        self.commands["check"] = check_cmd
         
     
 
