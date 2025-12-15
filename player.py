@@ -101,7 +101,7 @@ class Player:
         print(self.current_room.get_inventory())    
 
     def take(self, item_name: str):
-        item = self.current_room.inventory.get(item_name)  # récupère l'objet
+        item = next((i for i in self.current_room.inventory.values() if i.name.lower() == item_name.lower()), None)
         if item:
             self.inventory[item_name] = item           # ajouter au joueur
             del self.current_room.inventory[item_name]  # retirer de la salle
@@ -113,7 +113,7 @@ class Player:
 
 
     def drop(self, item_name: str):
-        item = self.inventory.get(item_name)
+        item = next((i for i in self.inventory.values() if i.name.lower() == item_name.lower()), None)
         if item:
             self.current_room.inventory[item_name] = item
             del self.inventory[item_name]
@@ -132,5 +132,5 @@ class Player:
             print("\nVotre inventaire est vide.\n")
         else:
             print("\nVous disposez des items suivants :")
-            for item in self.inventory:
-                print(f"    - {item.name} : {item.description} ({item.weight} kg)")
+            for item in self.inventory.values():
+                 print(f"    - {item.name} : {item.description} ({item.weight} kg)")
