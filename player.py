@@ -101,29 +101,28 @@ class Player:
         print(self.current_room.get_inventory())    
 
     def take(self, item_name: str):
-        """Prendre un item dans la salle et le mettre dans l'inventaire du joueur"""
-        # Chercher l'item dans la salle
-        item = next((i for i in self.current_room.inventory if i.name.lower() == item_name.lower()), None)
+        item = self.current_room.inventory.get(item_name)  # récupère l'objet
         if item:
-            self.inventory.append(item)            # Ajouter à l'inventaire du joueur
-            self.current_room.inventory.remove(item)  # Retirer de la salle
+            self.inventory[item_name] = item           # ajouter au joueur
+            del self.current_room.inventory[item_name]  # retirer de la salle
             print(f"\nVous avez pris {item.name}.\n")
             return True
         else:
             print(f"\nIl n'y a pas d'item nommé '{item_name}' ici.\n")
             return False
 
+
     def drop(self, item_name: str):
-        """Déposer un item de l'inventaire dans la salle actuelle"""
-        item = next((i for i in self.inventory if i.name.lower() == item_name.lower()), None)
+        item = self.inventory.get(item_name)
         if item:
-            self.inventory.remove(item)           # Retirer de l'inventaire du joueur
-            self.current_room.inventory.append(item)  # Ajouter à la salle
+            self.current_room.inventory[item_name] = item
+            del self.inventory[item_name]
             print(f"\nVous avez déposé {item.name}.\n")
             return True
         else:
             print(f"\nVous n'avez pas d'item nommé '{item_name}'.\n")
             return False
+
         
  
 
