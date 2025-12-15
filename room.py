@@ -37,6 +37,7 @@ class Room:
     def get_long_description(self):
         """Retourne une description longue affichée au joueur."""
         return f"\nVous êtes dans {self.description}\n\n{self.get_exit_string()}\n"
+        
         def get_inventory(self):
             if not self.inventory:
                 return "\nIl n'y a rien ici.\n"

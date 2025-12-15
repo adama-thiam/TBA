@@ -31,6 +31,13 @@ class Game:
             0
         )
         self.commands["look"] = look_cmd
+        take_cmd = Command("take", " <item> : prendre un item dans la salle", Actions.take, 1)
+        self.commands["take"] = take_cmd
+        drop_cmd = Command("drop", " <item> : déposer un item dans la salle", Actions.drop, 1)
+        self.commands["drop"] = drop_cmd
+        
+    
+
 
 
 
