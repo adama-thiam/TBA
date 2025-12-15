@@ -82,12 +82,12 @@ class Game:
         self.player.current_room = entree
 
         #Création des items
-        lampe de poche = Item("lampe de poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.5)
+        lampe_de_poche = Item("lampe de poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.5)
         
 
         # ajout des items dans les salles
 
-        dortoir.inventory.append(lampe de poche)
+        dortoir.inventory.append(lampe_de_poche)
         
 
 
