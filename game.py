@@ -91,7 +91,8 @@ class Game:
 
         # ajout des items dans les salles
 
-        dortoir.inventory.append(lampe_de_poche)
+        dortoir.inventory[lampe_de_poche.name] = lampe_de_poche  # correct pour un dict
+
         
 
 
