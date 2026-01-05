@@ -201,3 +201,25 @@ class Actions:
         print(room.get_long_description())  # description de la pièce
         print(room.get_inventory())         # items dans la pièce
         return True
+    
+
+    def talk(game, list_of_words, number_of_parameters):
+
+        """Permet de parler à un PNJ dans la salle actuelle"""
+        
+        # Vérification du nombre de paramètres
+        if len(list_of_words) != number_of_parameters + 1:
+            print(f"\nLa commande '{list_of_words[0]}' prend 1 seul paramètre.\n")
+            return False
+        
+        pnj_name = list_of_words[1].lower()
+        room = game.player.current_room
+        
+        # Vérifie si le PNJ est présent dans la salle
+        if pnj_name in room.characters:
+            pnj = room.characters[pnj_name]
+            pnj.get_msg()  # affiche un message cyclique
+            return True
+        else:
+            print(f"\nIl n'y a pas de personnage nommé '{pnj_name}' ici.\n")
+            return False
