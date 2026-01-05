@@ -5,6 +5,7 @@ from actions import Actions
 from item import Item
 from character import Character
 
+DEBUG = True
 
 class Game:
 
@@ -113,18 +114,18 @@ class Game:
         
 
     def play(self):
-    self.setup()
-    self.print_welcome()
-    while not self.finished:
-        # Déplacer tous les PNJ avant que le joueur joue
-        for room in self.rooms:
-            for character in room.characters.values():
-                moved = character.move()
-                if DEBUG and moved:
-                    print(f"DEBUG: {character.name} s'est déplacé vers {character.current_room.name}")
+        self.setup()
+        self.print_welcome()
+        while not self.finished:
+            # Déplacer tous les PNJ avant que le joueur joue
+            for room in self.rooms:
+                for character in room.characters.values():
+                    moved = character.move()
+                    if DEBUG and moved:
+                        print(f"DEBUG: {character.name} s'est déplacé vers {character.current_room.name}")
 
-        self.process_command(input("> "))
-    return None
+            self.process_command(input("> "))
+        return None
 
     def process_command(self, command_string) -> None:
         # Commande vide : ne rien afficher
