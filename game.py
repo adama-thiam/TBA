@@ -97,12 +97,12 @@ class Game:
 
         # ajout des characters
 
-        perso_sans_nom_1 = Character("Sans_nom","un personnage de test",living_room,["Je suis un personnage sans nom","test"])
-
+        perso_sans_nom_1 = Character("Sans_nom","un personnage de test1",living_room,["Je suis un personnage sans nom1","test1"])
+        perso_sans_nom_2 = Character("Sans_nom","un personnage de test2",living_room,["Je suis un personnage sans nom2","test2"])
         # ajout des characters dans les salles
 
         living_room.characters[perso_sans_nom_1.name.lower()] = perso_sans_nom_1
-
+        dortoir.characters[perso_sans_nom_2.name.lower()] =  perso_sans_nom_2
 
 
         
