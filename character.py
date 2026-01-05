@@ -26,4 +26,12 @@ class Character:
                 self.current_room = random.choice(valid_exits)
                 return True
         return False
-    
+        
+    def get_msg(self):
+        """Affiche cycliquement les messages du PNJ"""
+        if not self.msgs:
+            print(f"{self.name} ne dit rien.")
+            return
+        msg = self.msgs.pop(0)  
+        print(msg)
+        self.msgs.append(msg)      
