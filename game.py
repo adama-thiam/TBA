@@ -83,6 +83,12 @@ class Game:
         couloir_gardien.exits = {"E": labyrinthe,"S": carrefour}
         carrefour.exits = {"N": labyrinthe,"O": salle_sombre,"E": couloir_gardien}
 
+        self.rooms = [
+        entree, living_room, dortoir, couloir1, bibliotheque, salle_classe_1,
+        salle_classe_2, couloir2, cuisine, bathroom, chambre_mere,
+        escalier_cache, labyrinthe, salle_sombre, couloir_gardien, carrefour
+        ]
+
        
         # Player
         self.player = Player(input("\nEntrez votre nom: "))
@@ -99,7 +105,7 @@ class Game:
         # ajout des characters
 
         perso_sans_nom_1 = Character("Sans_nom","un personnage de test1",living_room,["Je suis un personnage sans nom1","test1"])
-        perso_sans_nom_2 = Character("Sans_nom","un personnage de test2",living_room,["Je suis un personnage sans nom2","test2"])
+        perso_sans_nom_2 = Character("Sans_nom_2","un personnage de test2",living_room,["Je suis un personnage sans nom2","test2"])
         # ajout des characters dans les salles
 
         living_room.characters[perso_sans_nom_1.name.lower()] = perso_sans_nom_1
