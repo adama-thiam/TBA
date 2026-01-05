@@ -25,7 +25,7 @@ class Room:
         self.description = description
         self.exits = {}
         self.inventory = {} #dictionnaire
-
+        self.characters = {} 
     def get_exit_string(self):
         """Retourne une chaîne contenant la liste des directions disponibles."""
         exit_string = "Sorties: "
@@ -38,12 +38,20 @@ class Room:
         """Retourne une description longue affichée au joueur."""
         return f"\nVous êtes dans {self.description}\n\n{self.get_exit_string()}\n"
         
-    def get_inventory(self):
-        """Retourne la liste des items présents dans la salle."""
-        if not self.inventory:
+     def get_inventory(self):
+         if not self.inventory and not self.characters:
             return "\nIl n'y a rien ici.\n"
 
-        result = "\nLa pièce contient :\n"
-        for item in self.inventory.values():
-            result += f"    - {item}\n"
-        return result
+    result = "\nOn voit:\n"
+
+    # Items
+    for item in self.inventory.values():
+        result += f"    - {item}\n"
+
+    # Personnages non joueurs
+    for character in self.characters.values():
+        result += f"    - {character}\n"
+
+    return result
+
+     
