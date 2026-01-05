@@ -35,6 +35,9 @@ class Game:
         self.commands["drop"] = drop_cmd
         check_cmd = Command("check", " : afficher l'inventaire du joueur", Actions.check, 0)
         self.commands["check"] = check_cmd
+        talk_cmd = Command("talk", " <personnage> : parler à un personnage non joueur", Actions.talk, 1)
+        self.commands["talk"] = talk_cmd
+
         
     
 
