@@ -3,6 +3,8 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+from character import Character
+
 
 class Game:
 
@@ -92,6 +94,16 @@ class Game:
         # ajout des items dans les salles
 
         dortoir.inventory[lampe_de_poche.name] = lampe_de_poche  # correct pour un dict
+
+        # ajout des characters
+
+        perso_sans_nom_1 = Character("Sans_nom","un personnage de test",living_room,["Je suis un personnage sans nom","test"])
+
+        # ajout des characters dans les salles
+
+        living_room.characters[perso_sans_nom_1.name.lower()] = perso_sans_nom_1
+
+
 
         
 
