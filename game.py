@@ -4,6 +4,8 @@ from command import Command
 from actions import Actions
 from item import Item
 from character import Character
+from quest import Quest, QuestManager
+
 
 DEBUG = True
 
@@ -14,6 +16,8 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.quest_manager = QuestManager()
+
     
     def setup(self):
         # Commands
@@ -37,6 +41,16 @@ class Game:
         self.commands["check"] = check_cmd
         talk_cmd = Command("talk", " <personnage> : parler à un personnage non joueur", Actions.talk, 1)
         self.commands["talk"] = talk_cmd
+        quests_cmd = Command(   "quests"," : afficher la liste des quêtes disponibles", Actions.quests, 0)
+        self.commands["quests"] = quests_cmd
+        quest_cmd = Command("quest"," <nom> : afficher le détail d'une quête",Actions.quest,1)
+        self.commands["quest"] = quest_cmd
+        startquest_cmd = Command("startquest"," <nom> : activer une quête",Actions.startquest,1)
+        self.commands["startquest"] = startquest_cmd
+        rewards_cmd = Command("rewards"," : afficher les récompenses du joueur",Actions.rewards,0)
+        self.commands["rewards"] = rewards_cmd
+
+
 
         
     
@@ -92,6 +106,22 @@ class Game:
         escalier_cache, labyrinthe, salle_sombre, couloir_gardien, carrefour
         ]
 
+        # Quêtes
+        
+        # Quêtes
+
+        quest1 = Quest("lampe", "Trouve la lampe de poche dans le dortoir.", objectives=["prendre lampe_de_poche dans Dortoir"])
+        self.quest_manager.add_quest(quest1)
+
+        quest2 = Quest("Explorer la bibliothèque", "Va jusqu'à la bibliothèque.", objectives=["Explorer Bibliotheque"])
+        self.quest_manager.add_quest(quest2)
+
+        quest3 = Quest("Rencontrer un PNJ", "Parle au PNJ dans le living room.", objectives=["parler avec sans_nom"])
+        self.quest_manager.add_quest(quest3)
+
+
+        
+
        
         # Player
         self.player = Player(input("\nEntrez votre nom: "))
@@ -133,8 +163,21 @@ class Game:
                     if DEBUG and moved:
                         print(f"DEBUG: {character.name} s'est déplacé vers {character.current_room.name}")
 
-            self.process_command(input("> "))
-        return None
+            user_input = input(">")
+            self.process_command(user_input)
+
+            command_words = user_input.split()
+
+            if not command_words:
+                    continue
+
+       
+            self.quest_manager.check_room_objectives(self.player.current_room.name)
+
+            if command_words[0] == "talk" and len(command_words) > 1:
+                self.quest_manager.check_action_objectives("parler", command_words[1])
+            elif command_words[0] == "take" and len(command_words) > 1:
+                self.quest_manager.check_action_objectives("item", command_words[1])
 
     def process_command(self, command_string) -> None:
         # Commande vide : ne rien afficher

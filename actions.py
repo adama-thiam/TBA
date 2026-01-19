@@ -223,3 +223,79 @@ class Actions:
         else:
             print(f"\nIl n'y a pas de personnage nommé '{pnj_name}' ici.\n")
             return False
+        
+
+    def quests(game, list_of_words, number_of_parameters):
+        """
+        Affiche la liste des quêtes disponibles et leur statut.
+        """
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
+            return False
+
+        # Utilise le quest_manager du jeu pour afficher les quêtes
+        for quest in game.quest_manager.quests:
+            status = "Terminée" if quest.is_completed else "En cours"
+            print(f"- {quest.title} : {status}")
+        return True     
+            
+    def quest(game, list_of_words, number_of_parameters):
+        """
+        Affiche le détail d'une quête spécifique.
+        Fonctionne avec des titres composés de plusieurs mots, avec ou sans guillemets.
+        """
+        if len(list_of_words) < 2:
+            print(MSG1.format(command_word=list_of_words[0]))
+            return False
+
+    # Récupère le titre complet de la quête
+        quest_name = " ".join(list_of_words[1:]).strip('"')
+        quest = game.quest_manager.get_quest_by_title(quest_name)
+
+        if quest:
+            print(f"Quête : {quest.title}")
+            print(f"Description : {quest.description}")
+            for i, objective in enumerate(quest.objectives, 1):
+                status = "Terminé" if objective in quest.completed_objectives else "En cours"
+                print(f"  Objectif {i} : {objective} - {status}")
+            return True
+        else:
+            print(f"\nAucune quête nommée '{quest_name}' n'existe.\n")
+        return False
+
+    def startquest(game, list_of_words, number_of_parameters):
+        """
+        Active une quête spécifique.
+        Fonctionne avec des titres composés de plusieurs mots, avec ou sans guillemets.
+        """
+        if len(list_of_words) < 2:
+            print(MSG1.format(command_word=list_of_words[0]))
+            return False
+
+        # Récupère le titre complet de la quête
+        quest_name = " ".join(list_of_words[1:]).strip('"')
+        quest = game.quest_manager.get_quest_by_title(quest_name)
+
+        if quest:
+            if not quest.is_active:
+                quest.activate()  # active la quête et affiche le message
+                game.quest_manager.active_quests.append(quest)
+            else:
+                print(f"\nLa quête '{quest.title}' est déjà active.\n")
+            return True
+        else:
+            print(f"\nAucune quête nommée '{quest_name}' n'existe.\n")
+        return False
+
+
+    def rewards(game, list_of_words, number_of_parameters):
+        if len(list_of_words) != number_of_parameters + 1:
+            print(MSG0.format(command_word=list_of_words[0]))
+            return False
+        if hasattr(game.player, 'rewards') and game.player.rewards:
+            print("\nRécompenses obtenues :")
+            for reward in game.player.rewards:
+                print(f"- {reward}")
+        else:
+            print("\nVous n'avez encore reçu aucune récompense.")
+        return True
