@@ -21,8 +21,11 @@ NORMALISATION = {
     "n": "N", "nord": "N",
     "s": "S", "sud": "S",
     "e": "E", "est": "E",
-    "o": "O", "ouest": "O"
+    "o": "O", "ouest": "O",
+    "u": "U", "up": "U", "haut": "U", 
+    "d": "D", "down": "D", "bas": "D"  
 }
+
 
 
 
