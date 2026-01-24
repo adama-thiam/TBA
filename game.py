@@ -109,6 +109,8 @@ class Game:
         # Quêtes
         
         # Quêtes
+       
+      
 
         quest1 = Quest("lampe", "Trouve la lampe de poche dans le dortoir.", objectives=["prendre lampe_de_poche dans Dortoir"])
         self.quest_manager.add_quest(quest1)
@@ -119,6 +121,58 @@ class Game:
         quest3 = Quest("Rencontrer un PNJ", "Parle au PNJ dans le living room.", objectives=["parler avec sans_nom"])
         self.quest_manager.add_quest(quest3)
 
+        quest4 = Quest(
+        "Découvrir le passage secret",
+        "Trouve le passage secret dans la chambre de la mère.",
+        objectives=["Explorer ChambreMere"]
+        )
+        self.quest_manager.add_quest(quest4)
+
+        quest5 = Quest(
+        "Descendre au sous-sol",
+        "Emprunte l'escalier caché.",
+        objectives=["Explorer Escalier cache"]
+        )
+        self.quest_manager.add_quest(quest5)
+
+        quest6 = Quest(
+        "Explorer le labyrinthe",
+        "Entre dans le labyrinthe souterrain.",
+        objectives=["Explorer Labyrinthe"]
+        )
+        self.quest_manager.add_quest(quest6)
+        quest7 = Quest(
+        "Trouver la clé",
+        "Récupère la clé dans la bibliothèque.",
+        objectives=["prendre cle_bibliotheque dans Bibliotheque"]
+        )
+        self.quest_manager.add_quest(quest7)
+
+        quest8 = Quest(
+        "Carte du labyrinthe",
+        "Trouve une carte pour t'orienter.",
+        objectives=["prendre carte_labyrinthe dans Salle de classe 1"]
+        )
+        self.quest_manager.add_quest(quest8)
+        quest9 = Quest(
+        "Badge du gardien",
+        "Récupère le badge du gardien.",
+        objectives=["prendre badge_gardien dans Couloir_gardien"]
+        )
+        self.quest_manager.add_quest(quest9)
+
+        quest10 = Quest(
+        "Fuite finale",
+        "Prépare ta fuite.",
+        objectives=["prendre pied_de_biche dans Cuisine"]
+        )
+        self.quest_manager.add_quest(quest10)
+        quest11 = Quest(
+        "Comprendre la vérité",
+        "Découvre ce qui se cache derrière l'orphelinat.",
+        objectives=["parler avec sans_nom_2"]
+        )
+        self.quest_manager.add_quest(quest11)
 
         
 
@@ -129,11 +183,20 @@ class Game:
 
         #Création des items
         lampe_de_poche = Item("lampe_de_poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.5)
+        cle_bibliotheque = Item("cle_bibliotheque","une vieille clé rouillée",0.2)
+        carte_labyrinthe = Item("carte_labyrinthe","un plan partiel du labyrinthe",0.1)
+        badge_gardien = Item("badge_gardien","le badge du gardien",0.1)
+        pied_de_biche = Item("pied_de_biche","un outil pour forcer des portes",1.0)
+
         
 
         # ajout des items dans les salles
 
         dortoir.inventory[lampe_de_poche.name] = lampe_de_poche  # correct pour un dict
+        bibliotheque.inventory[cle_bibliotheque.name] = cle_bibliotheque
+        salle_classe_1.inventory[carte_labyrinthe.name] = carte_labyrinthe
+        couloir_gardien.inventory[badge_gardien.name] = badge_gardien
+        cuisine.inventory[pied_de_biche.name] = pied_de_biche
 
         # ajout des characters
 
