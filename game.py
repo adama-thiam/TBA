@@ -74,7 +74,7 @@ class Game:
 
         couloir2 = Room("Couloir2", "Un couloir menant à plusieurs pièces.")
         cuisine = Room("Cuisine", "La cuisine froide et silencieuse.")
-        bathroom = Room("Bathroon", "La salle de bain humide.")
+        bathroom = Room("Bathroom", "La salle de bain humide.")
 
         chambre_mere = Room("ChambreMere", "La chambre de la Mère Supérieure.")
         escalier_cache = Room("Escalier cache", "Un escalier secret caché derrière un meuble.")
@@ -113,8 +113,8 @@ class Game:
         
         # Quêtes
 
-        q1 = Quest("Obscure", "Trouver la lampe au dortoir.", objectives=["prendre lampe_de_poche"])
-        q2 = Quest("Le Plan", "Parler à Norman à la bibliothèque.", objectives=["parler avec norman"])
+        q1 = Quest("Obscure", "Trouver la lampe", objectives=["prendre lampe_de_poche"])
+        q2 = Quest("Le Plan", "Parler à Norman.", objectives=["parler avec norman"])
         q3 = Quest("La Clé", "Récupérer la clé argentée en bibliothèque.", objectives=["prendre clef_mere"])
         q4 = Quest("Partir", "Atteindre le carrefour avec la corde.", objectives=["Explorer carrefour"])
 
@@ -156,11 +156,11 @@ class Game:
 
         # ajout des characters
 
-        Emma = Character("Emma","Une fille qui adore jouer",living_room,["Mark ne veut pas jouer avec moi et ne sort veut pas sortir du dortoir ","Il m'a dit qu'il avait quelque chose à faire"])
-        Mark = Character("Mark","Un garçon qui adore jouer ",living_room,["Norman m'a demandé de te dire de le rejoindre dans la bibliothèque","Norman avait l'air très inquiet..."])
+        Emma = Character("Emma","Une fille qui adore jouer",living_room,["Mark ne veut pas jouer avec moi","Il m'a dit qu'il avait quelque chose à faire"])
+        Mark = Character("Mark","Un garçon qui adore jouer ",living_room,["Norman m'a demandé de te dire de le rejoindre la dernière fois que je l'ai vu il était à la bibliothèque","Norman avait l'air très inquiet..."])
 
         isabella = Character("Isabella", "Maman... elle vous fixe avec un sourire glacial.", cuisine, ["Mes chers enfants, l'heure de la livraison approche.", "Où comptez-vous aller comme ça ?"])
-        norman = Character("Norman", "Il murmure un secret.", bibliotheque,["Je t'attendais", "j'ai vu Maman cacher quelque chose dans la bibliothèque.",
+        norman = Character("Norman", "Il murmure un secret.", bibliotheque,["Je t'attendais", "Prend cette clef je l'ai dérobé à Mère.",
     "Il faut la clé pour entrer dans sa chambre et atteindre l'escalier !"
         ])
        
