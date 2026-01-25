@@ -110,81 +110,30 @@ class Game:
         escalier_cache, labyrinthe, salle_sombre, couloir_gardien, carrefour
         ]
 
-        # Quêtes
         
         # Quêtes
+
+        q1 = Quest("Obscure", "Trouver la lampe au dortoir.", objectives=["prendre lampe_de_poche"])
+        q2 = Quest("Le Plan", "Parler à Norman à la bibliothèque.", objectives=["parler avec norman"])
+        q3 = Quest("La Clé", "Récupérer la clé argentée en bibliothèque.", objectives=["prendre clef_mere"])
+        q4 = Quest("Partir", "Atteindre le carrefour avec la corde.", objectives=["Explorer carrefour"])
+
+        
+        for q in [q1, q2, q3, q4]:
+            self.quest_manager.add_quest(q)
+            q.is_active = True 
+            self.quest_manager.active_quests.append(q)
+        
+        print(f"\n🗡️  Objectif initial : {q1.description}")
        
       
-
-        quest1 = Quest("lampe", "Trouve la lampe de poche dans le dortoir.", objectives=["prendre lampe_de_poche dans Dortoir"])
-        self.quest_manager.add_quest(quest1)
-
-        quest2 = Quest("Explorer la bibliothèque", "Va jusqu'à la bibliothèque.", objectives=["Explorer Bibliotheque"])
-        self.quest_manager.add_quest(quest2)
-
-        quest3 = Quest("Rencontrer un PNJ", "Parle au PNJ dans le living room.", objectives=["parler avec sans_nom"])
-        self.quest_manager.add_quest(quest3)
-
-        quest4 = Quest(
-        "Découvrir le passage secret",
-        "Trouve le passage secret dans la chambre de la mère.",
-        objectives=["Explorer ChambreMere"]
-        )
-        self.quest_manager.add_quest(quest4)
-
-        quest5 = Quest(
-        "Descendre au sous-sol",
-        "Emprunte l'escalier caché.",
-        objectives=["Explorer Escalier cache"]
-        )
-        self.quest_manager.add_quest(quest5)
-
-        quest6 = Quest(
-        "Explorer le labyrinthe",
-        "Entre dans le labyrinthe souterrain.",
-        objectives=["Explorer Labyrinthe"]
-        )
-        self.quest_manager.add_quest(quest6)
-        quest7 = Quest(
-        "Trouver la clé",
-        "Récupère la clé dans la bibliothèque.",
-        objectives=["prendre cle_bibliotheque dans Bibliotheque"]
-        )
-        self.quest_manager.add_quest(quest7)
-
-        quest8 = Quest(
-        "Carte du labyrinthe",
-        "Trouve une carte pour t'orienter.",
-        objectives=["prendre carte_labyrinthe dans Salle de classe 1"]
-        )
-        self.quest_manager.add_quest(quest8)
-        quest9 = Quest(
-        "Badge du gardien",
-        "Récupère le badge du gardien.",
-        objectives=["prendre badge_gardien dans Couloir_gardien"]
-        )
-        self.quest_manager.add_quest(quest9)
-
-        quest10 = Quest(
-        "Fuite finale",
-        "Prépare ta fuite.",
-        objectives=["prendre pied_de_biche dans Cuisine"]
-        )
-        self.quest_manager.add_quest(quest10)
-        quest11 = Quest(
-        "Comprendre la vérité",
-        "Découvre ce qui se cache derrière l'orphelinat.",
-        objectives=["parler avec sans_nom_2"]
-        )
-        self.quest_manager.add_quest(quest11)
-
         
-
+        
        
         # Player
 
         if player_name is None:
-        # Si on est en CLI, on demande le nom dans la console
+       
             player_name = input("\nEntrez votre nom: ")
     
         self.player = Player(player_name)
@@ -192,83 +141,144 @@ class Game:
         
 
         #Création des items
-        lampe_de_poche = Item("lampe_de_poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.5)
-        cle_bibliotheque = Item("cle_bibliotheque","une vieille clé rouillée",0.2)
-        carte_labyrinthe = Item("carte_labyrinthe","un plan partiel du labyrinthe",0.1)
-        badge_gardien = Item("badge_gardien","le badge du gardien",0.1)
-        pied_de_biche = Item("pied_de_biche","un outil pour forcer des portes",1.0)
-
+        lampe_de_poche = Item("lampe_de_poche", "une lampe de poche très puissante capable d'éclairer tout une salle", 0.3)
+        corde = Item("corde", "une corde solide faite de draps tressés", 0.5)
+        clef_mere = Item("clef_mere", "une clé argentée cachée dans un vieux livre.", 0.1)
+    
         
 
         # ajout des items dans les salles
 
-        dortoir.inventory[lampe_de_poche.name] = lampe_de_poche  # correct pour un dict
-        bibliotheque.inventory[cle_bibliotheque.name] = cle_bibliotheque
-        salle_classe_1.inventory[carte_labyrinthe.name] = carte_labyrinthe
-        couloir_gardien.inventory[badge_gardien.name] = badge_gardien
-        cuisine.inventory[pied_de_biche.name] = pied_de_biche
+        dortoir.inventory[lampe_de_poche.name] = lampe_de_poche  # correct pour un dict         
+        bibliotheque.inventory["clef_mere"] = clef_mere
+        dortoir.inventory["corde"] = corde
+
 
         # ajout des characters
 
-        perso_sans_nom_1 = Character("Sans_nom","un personnage de test1",living_room,["Je suis un personnage sans nom1","test1"])
-        perso_sans_nom_2 = Character("Sans_nom_2","un personnage de test2",living_room,["Je suis un personnage sans nom2","test2"])
+        Emma = Character("Emma","Une fille qui adore jouer",living_room,["Mark ne veut pas jouer avec moi et ne sort veut pas sortir du dortoir ","Il m'a dit qu'il avait quelque chose à faire"])
+        Mark = Character("Mark","Un garçon qui adore jouer ",living_room,["Norman m'a demandé de te dire de le rejoindre dans la bibliothèque","Norman avait l'air très inquiet..."])
+
+        isabella = Character("Isabella", "Maman... elle vous fixe avec un sourire glacial.", cuisine, ["Mes chers enfants, l'heure de la livraison approche.", "Où comptez-vous aller comme ça ?"])
+        norman = Character("Norman", "Il murmure un secret.", bibliotheque,["Je t'attendais", "j'ai vu Maman cacher quelque chose dans la bibliothèque.",
+    "Il faut la clé pour entrer dans sa chambre et atteindre l'escalier !"
+        ])
+       
+
         # ajout des characters dans les salles
 
-        living_room.characters[perso_sans_nom_1.name.lower()] = perso_sans_nom_1
-        dortoir.characters[perso_sans_nom_2.name.lower()] =  perso_sans_nom_2
+        living_room.characters[Emma.name.lower()] = Emma
+        dortoir.characters[Mark.name.lower()] =  Mark
+
+        cuisine.characters["isabella"] = isabella
+        bibliotheque.characters["norman"] = norman
 
 
         
-
-
-
-
-        
+       
 
     def play(self):
         self.setup()
         self.print_welcome()
         while not self.finished:
-            # Déplacer tous les PNJ avant que le joueur joue
-            for room in self.rooms:
-                for character in room.characters.values():
-                    moved = character.move()
-                    if DEBUG and moved:
-                        print(f"DEBUG: {character.name} s'est déplacé vers {character.current_room.name}")
-
+            self.move_pnjs(is_gui=False) 
             user_input = input(">")
             self.process_command(user_input)
 
-            command_words = user_input.split()
 
-            if not command_words:
-                    continue
+    def move_pnjs(self, is_gui=False):
+        """Déplace Isabella à 100% et les autres à 20%. Affiche le debug uniquement en CLI."""
+        import random
+        moved_characters = set()
+        for room in self.rooms:
+            for char_id in list(room.characters.keys()):
+                character = room.characters[char_id]
+                if character not in moved_characters:
+                    is_isabella = character.name.lower() == "isabella"
+                    
+                    # --- RÉGLAGE DES PROBABILITÉS ---
+                    # Isabella: 100% (1.0), Autres: 20% (0.2)
+                    chance = 1.0 if is_isabella else 0.20
+                    
+                    if random.random() < chance:
+                        old_room = room
+                        if character.move(): 
+                            new_room = character.current_room
+                            del old_room.characters[char_id]
+                            new_room.characters[char_id] = character
+                            moved_characters.add(character)
+                            
+                            # --- AFFICHAGE INTELLIGENT ---
+                            if is_isabella:
+                                # Toujours affiché (GUI et CLI) car c'est du gameplay
+                                print(f"\n👣 Des pas lourds résonnent... Maman se déplace vers : {new_room.name}")
+                            elif DEBUG and not is_gui:
+                                # Affiché UNIQUEMENT dans le terminal (CLI) si DEBUG est True
+                                print(f"DEBUG: {character.name} est allé en {new_room.name}")
 
-       
-            self.quest_manager.check_room_objectives(self.player.current_room.name)
-
-            if command_words[0] == "talk" and len(command_words) > 1:
-                self.quest_manager.check_action_objectives("parler", command_words[1])
-            elif command_words[0] == "take" and len(command_words) > 1:
-                self.quest_manager.check_action_objectives("item", command_words[1])
-
+    
     def process_command(self, command_string) -> None:
-        # Commande vide : ne rien afficher
-        if command_string.strip() == "":
+        if not command_string.strip():
+            return
+        
+        list_of_words = command_string.split(" ")
+        command_word = list_of_words[0].lower()
+
+        #  Vérification de l'existence de la commande
+        if command_word not in self.commands:
+            print(f"\nCommande '{command_word}' inconnue.")
             return
 
-        list_of_words = command_string.split(" ")
-        command_word = list_of_words[0]
+        #  LOGIQUE DE PROGRESSION 
+        if command_word == "go" and len(list_of_words) > 1:
+            direction = list_of_words[1][0].upper()
+            target = self.player.current_room.exits.get(direction)
+            
+            if target:
+                # Verrou de la Chambre de Maman (nécessite la clé)
+                if target.name == "ChambreMere" and "clef_mere" not in self.player.inventory:
+                    print("\n🔒 La porte est verrouillée. Norman a dit que la clé est en Bibliothèque !")
+                    return
+                
+                # Verrou du Labyrinthe (nécessite la lampe)
+                if target.name == "Labyrinthe" and "lampe_de_poche" not in self.player.inventory:
+                    print("\n🌑 Il fait trop noir pour descendre dans les tunnels sans lampe de poche !")
+                    return 
 
-        if command_word not in self.commands.keys():
-            print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
-        else:
-            command = self.commands[command_word]
-            command.action(self, list_of_words, command.number_of_parameters)
+        
+        command = self.commands[command_word]
+        command.action(self, list_of_words, command.number_of_parameters)
+
+        # 4. VALIDATION DES QUÊTES 
+        
+        self.quest_manager.check_room_objectives(self.player.current_room.name)
+        
+        # On vérifie les actions spécifiques
+        if len(list_of_words) > 1:
+            target_obj = list_of_words[1].lower()
+            
+            if command_word == "take":
+                # On traduit "take" en "prendre" pour que Quest.py comprenne
+                self.quest_manager.check_action_objectives("prendre", target_obj)
+            
+            elif command_word == "talk":
+              
+                self.quest_manager.check_action_objectives("parler", target_obj)
+
+        # 5. CONDITION DE VICTOIRE
+        current_room = self.player.current_room
+        if current_room.name == "carrefour" and "corde" in self.player.inventory:
+            print("\n🏆 LIBERTÉ ! Vous avez utilisé la corde pour franchir le mur ! Vous êtes libre !")
+            self.finished = True
 
     def print_welcome(self):
-        print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
+        """Affiche le message d'introduction et guide le joueur dès le début."""
         print("Entrez 'help' si vous avez besoin d'aide.")
+        print(f"\nBienvenue {self.player.name} dans cet orphelinat...")
+        print("Maman Isabella rôde dans les couloirs. Trouvez un moyen de vous échapper vite !")
+        print("-" * 50)
+        print("CONSEIL : Tapez la commande 'quests' pour voir vos objectifs.")
+        print("-" * 50)
         print(self.player.current_room.get_long_description())
 
 
@@ -389,34 +399,38 @@ class GameGUI(tk.Tk):
         self.entry_input.delete(0, tk.END)
 
     def _send_command(self, command):
-        """Traite la commande et met à jour l'interface."""
-        if self.game.finished:
+        """Envoie la commande, déplace les PNJ sans debug et vérifie la capture."""
+        if self.game.finished: 
             return
 
-        # 1. On affiche la commande dans le terminal (Text widget)
+        # 1. On affiche la commande dans la zone de texte
         print(f"\n> {command}") 
         
-        # 2. On exécute la commande dans la logique du jeu
+        # 2. On exécute l'action du joueur
         self.game.process_command(command)
         
-        # 3. MISE À JOUR VISUELLE (Indispensable pour que le nom de la pièce change)
+        # 3. Mouvement des PNJ (uniquement si le joueur n'a pas déjà perdu/gagné)
+        if not self.game.finished:
+            # On active le mode is_gui=True pour ne voir QUE les pas d'Isabella
+            self.game.move_pnjs(is_gui=True) 
+            
+            # 4. Vérification de capture immédiate après le mouvement des PNJ
+            if "isabella" in self.game.player.current_room.characters:
+                print("\n😱 Maman entre dans la pièce ! Vous êtes capturé !")
+                print("❌ GAME OVER.")
+                self.game.finished = True
+
+        # 5. Mise à jour de l'image et du texte
         self._update_room_image()
+        self.update_idletasks() # Force l'affichage immédiat du texte
 
-        # 4. Vérification des quêtes
-        command_words = command.split()
-        if command_words:
-            self.game.quest_manager.check_room_objectives(self.game.player.current_room.name)
-            if command_words[0] == "talk" and len(command_words) > 1:
-                self.game.quest_manager.check_action_objectives("parler", command_words[1])
-            elif command_words[0] == "take" and len(command_words) > 1:
-                self.game.quest_manager.check_action_objectives("item", command_words[1])
-
-        # 5. Gestion de la fin du jeu (Commande 'quit')
+        # 6. Gestion de la fermeture si le jeu est fini
         if self.game.finished:
-            self.entry_input.configure(state="disabled") # Bloque la saisie
-            print("\nFermeture du jeu dans 2 secondes...")
-            self.after(2000, self._on_close) # Ferme la fenêtre après 2 secondes
+            self.entry_input.configure(state="disabled")
+            print("\nFermeture du jeu dans 5 secondes...")
+            self.after(5000, self._on_close)
 
+     
     def _update_room_image(self):
         """Met à jour le Canvas en fonction de la pièce actuelle."""
         if not self.game.player or not self.game.player.current_room:
@@ -452,37 +466,24 @@ class GameGUI(tk.Tk):
         self.destroy()
         sys.exit()
 
-# ICI IL NE DOIT PLUS RIEN Y AVOIR AVANT LE MAIN
-def main():
-    # ... ton code main reste identique
 
-    def _on_close(self):
-        """Ferme proprement l'application."""
-        sys.stdout = self.original_stdout # Restaurer le stdout original
-        self.destroy()
-        sys.exit()
-
-   
-    # ... (toutes les méthodes _build_layout, _update_room_image, _on_enter, _send_command, _on_close)
 
 def main():
-    """Entry point.
-
-    If '--cli' is passed as an argument, start the classic console version.
-    Otherwise launch the Tkinter GUI.
-    Fallback to CLI if GUI cannot be initialized (e.g., headless environment).
-    """
+    """Point d'entrée du jeu."""
     args = sys.argv[1:]
     if '--cli' in args:
-        Game().play()
-        return
-    try:
-        app = GameGUI()
-        app.mainloop()
-    except tk.TclError as e:
-        # Fallback to CLI if GUI fails (e.g., no DISPLAY, Tkinter not available)
-        print(f"GUI indisponible ({e}). Passage en mode console.")
-        Game().play()
+        # Mode console classique
+        game_instance = Game()
+        game_instance.play()
+    else:
+        # Mode Interface Graphique
+        try:
+            app = GameGUI()
+            app.mainloop()
+        except tk.TclError as e:
+            print(f"GUI indisponible ({e}). Passage en mode console.")
+            game_instance = Game()
+            game_instance.play()
 
 if __name__ == "__main__":
     main()

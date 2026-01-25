@@ -15,13 +15,18 @@ class Character:
         return f"{self.name} : {self.description}"
 
     def move(self):
-        """Le personnage peut se déplacer aléatoirement dans une salle adjacente."""
+        """Le personnage se déplace aléatoirement, mais uniquement via les sorties cardinales (N, S, E, O)."""
         if not self.current_room.exits:
-            return False  # pas de sorties, reste sur place
+            return False 
         
-        # 50% de chance de bouger
+        # 50% de chance de bouger à chaque tour
         if random.choice([True, False]):
-            valid_exits = [room for room in self.current_room.exits.values() if room is not None]
+            # On filtre les sorties pour exclure "U" (Up) et "D" (Down)
+            valid_exits = [
+                room for direction, room in self.current_room.exits.items() 
+                if room is not None and direction not in ["U", "D"]
+            ]
+            
             if valid_exits:
                 self.current_room = random.choice(valid_exits)
                 return True
