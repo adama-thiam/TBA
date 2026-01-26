@@ -198,7 +198,7 @@ class Game:
                     
                     # --- RÉGLAGE DES PROBABILITÉS ---
                     # Isabella: 100% (1.0), Autres: 20% (0.2)
-                    chance = 1.0 if is_isabella else 0.20
+                    chance = 1 if is_isabella else 0.20
                     
                     if random.random() < chance:
                         old_room = room
